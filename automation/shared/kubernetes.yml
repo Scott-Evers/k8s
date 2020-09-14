@@ -1,0 +1,14 @@
+- name: add google repo for kubernetes
+  become: yes
+  copy:
+          src: resources/kubernetes.repo
+          dest: /etc/yum.repos.d
+- name: install kubernetes packages
+  become: yes
+  yum:
+          name: "{{ kubernetes_packages }}"
+  vars:
+          kubernetes_packages:
+          - kubelet
+          - kubeadm
+          - kubectl 

@@ -1,0 +1,8 @@
+- name: install docker
+  shell: amazon-linux-extras install docker
+  become: yes
+- name: start docker
+  become: yes
+  service:
+          name: docker
+          state: started
