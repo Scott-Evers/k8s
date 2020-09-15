@@ -1,14 +1,17 @@
-- name: add google repo for kubernetes
+- name: Add an apt signing key for Kubernetes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
   become: yes
-  copy:
-          src: resources/kubernetes.repo
-          dest: /etc/yum.repos.d
-- name: install kubernetes packages
+- apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    state: present
   become: yes
-  yum:
-          name: "{{ kubernetes_packages }}"
-  vars:
-          kubernetes_packages:
-          - kubelet
+- name: install docker
+  become: yes
+  apt:
+          state: latest
+          pkg:
           - kubeadm
-          - kubectl 
+          - kubelet
+          - kubectl
