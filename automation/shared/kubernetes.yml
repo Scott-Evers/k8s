@@ -7,7 +7,7 @@
     repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
     state: present
   become: yes
-- name: install docker
+- name: install kubernetes
   become: yes
   apt:
           state: latest
