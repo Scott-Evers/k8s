@@ -13,7 +13,7 @@ const svr = http.createServer((client_req, client_res) => {
   }
 
   const options = {
-    hostname: 'localhost',
+    hostname: 'blog-sample-app-data',
     port: 1337,
     path: client_req.url,
     method: client_req.method,

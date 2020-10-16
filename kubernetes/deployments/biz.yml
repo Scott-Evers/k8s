@@ -1,37 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blog-sample-app-data
+  name: blog-sample-app-biz
   labels:
     app: blog-sample-app
-    tier: data
+    tier: biz
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: blog-sample-app
-      tier: data
+      tier: biz
   template:
     metadata:
       labels:
         app: blog-sample-app
-        tier: data
+        tier: biz
     spec:
       containers:
-      - name: blog-sample-app-data
-        image: evers/blog/data:0.1
+      - name: blog-sample-app-biz
+        image: evers/blog/biz:0.2
         ports:
-        - containerPort: 1337
+        - containerPort: 1338
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: blog-sample-app-data
+  name: blog-sample-app-biz
 spec:
+  type: NodePort
   selector:
     app: blog-sample-app
-    tier: data
+    tier: biz
   ports:
     - protocol: TCP
-      port: 1337
-      targetPort: 1337
+      port: 1338
+      targetPort: 1338
+      nodePort: 30000
