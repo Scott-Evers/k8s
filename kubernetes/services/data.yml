@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog-sample-app-data
+spec:
+  selector:
+    app: blog_sample_app
+    tier: data
+  ports:
+    - protocol: TCP
+      port: 1337
+      targetPort: 1337

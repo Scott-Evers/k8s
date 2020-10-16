@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-sample-app-data
+  labels:
+    app: blog-sample-app-data
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-sample-app-data
+  template:
+    metadata:
+      labels:
+        app: blog-sample-app-data
+    spec:
+      containers:
+      - name: blog-sample-app-data
+        image: evers/blog/data:0.1
+        ports:
+        - containerPort: 1337

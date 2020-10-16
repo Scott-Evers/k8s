@@ -41,6 +41,6 @@ const svr = http.createServer((req, res) => {
   });
 
 
-svr.listen(1337,'127.0.0.1')
+svr.listen(1337,'0.0.0.0')
 
 
