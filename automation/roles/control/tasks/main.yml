@@ -1,3 +1,2 @@
 - name: Install controld plane on Debian
-  import_tasks: debian.yml
-  when: os_fam == 'debian'
+  import_tasks: "{{ hostvars['localhost']['ansible_facts']['os_family']|lower }}.yml"
