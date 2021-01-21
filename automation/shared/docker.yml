@@ -1,13 +1,13 @@
 - block:
+  when: ansible_distribution in ['Fedora','RedHat','CentOS']
+
+- block:
   - apt_key:
           url: https://download.docker.com/linux/ubuntu/gpg
-    become: yes
   - apt_repository:
       repo: deb https://download.docker.com/linux/ubuntu bionic stable
       state: present
-    become: yes
   - name: install docker
-    become: yes
     apt:
             state: latest
             pkg:
@@ -15,12 +15,7 @@
             - docker-ce-cli
             - containerd.io
   - name: start docker
-    become: yes
     service:
             name: docker
             state: started
-  when: ansible_distribution in ['Fedora','RedHat','CentOS']
-
-- block:
-
   when: ansible_distribution == 'Ubuntu'

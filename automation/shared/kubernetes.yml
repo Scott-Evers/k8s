@@ -4,13 +4,10 @@
     apt_key:
       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
       state: present
-    become: yes
   - apt_repository:
       repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
       state: present
-    become: yes
   - name: install kubernetes
-    become: yes
     apt:
             state: latest
             pkg:
