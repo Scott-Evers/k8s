@@ -5,3 +5,6 @@
    become: yes
    tasks:
            - import_tasks: ../shared/k8s_server.yml
+           - block:
+                   import_tasks: ../control/playbook.yml
+             when: "{{ role }}" == 'control'
