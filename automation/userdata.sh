@@ -18,9 +18,18 @@ fi
 [ "$DISTRO" == "" ] && export DISTRO=$UNAME
 unset UNAME
 
-echo $DISTRO
 
 
+if [ "$DISTRO" == "Ubuntu" ]; then
+
+	apt update
+	apt install -y git ansible
+
+	git clone git@gitlab.com:scott-sandbox/container-research.git
+
+	ansible-playbook ~/container-research/automation/master/master.yml
+	
+fi
 
 
 if [ "$DISTRO" == "blah" ]; then
@@ -56,4 +65,3 @@ if [ "$DISTRO" == "blah" ]; then
 
 
 fi #end of CentOS
-

@@ -1,3 +1,0 @@
-- block:
-        command: echo 'contrl plane node'
-  when: ansible_distribution == 'Ubuntu'
