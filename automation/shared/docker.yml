@@ -1,4 +1,6 @@
 - block:
+  - debug:
+    msg:  'Not implemented yet'
   when: ansible_distribution in ['Fedora','RedHat','CentOS']
 
 - block:
