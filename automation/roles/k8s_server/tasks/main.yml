@@ -1,4 +1,4 @@
 - name: Install Docker
-  import_tasks: "docker/{{ ansible_facts['os_family']|lower }}.yml"
+  import_tasks: "docker/{{ os_fam }}.yml"
 - name: Install Kubernetes
-  import_tasks: "k8s/{{ ansible_facts['os_family']|lower }}.yml"
+  import_tasks: "k8s/{{ os_fam }}.yml"

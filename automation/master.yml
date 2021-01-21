@@ -7,6 +7,10 @@
    - name: Base docker and kubernetes installation
      include_role: 
        name: k8s_server
+     vars:
+        os_fam: ansible_facts['os_family']|lower
    - name: Control plane
      include_role: 
        name: control
+     vars:
+        os_fam: ansible_facts['os_family']|lower
