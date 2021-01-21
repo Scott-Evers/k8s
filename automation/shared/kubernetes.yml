@@ -1,17 +1,53 @@
-- name: Add an apt signing key for Kubernetes
-  apt_key:
-    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    state: present
-  become: yes
-- apt_repository:
-    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
-    state: present
-  become: yes
-- name: install kubernetes
-  become: yes
-  apt:
-          state: latest
-          pkg:
-          - kubeadm
-          - kubelet
-          - kubectl
+- block:
+
+  - name: Add an apt signing key for Kubernetes
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+    become: yes
+  - apt_repository:
+      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+    become: yes
+  - name: install kubernetes
+    become: yes
+    apt:
+            state: latest
+            pkg:
+            - kubeadm
+            - kubelet
+            - kubectl
+  when: ansible_distribution in  ['CentOS', 'Fedora', 'RedHat']
+
+- block:
+          - name: install k8s repo GPG key
+            apt_key:
+                    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+                    state: present
+
+          - name: install k8s repo
+            apt_repository:
+                    repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+                    state: present
+                    filename: kubernetes
+
+          - name: install apt
+            apt:
+                    pkg:
+                            - aptitude
+                            - apt-transport-https
+
+          - name: update and upgrade packages
+            apt:
+                    update_cache: yes
+                    upgrade: yes
+
+          - name: install k8s
+            package: name={{ item }}
+            with_items:
+                    - kubelet
+                    - kubeadm
+                    - kubectl
+                    - kubernetes-cni
+
+  when: ansible_distribution == 'Ubuntu'
