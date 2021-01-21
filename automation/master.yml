@@ -5,6 +5,8 @@
    become: yes
    tasks:
    - name: Base docker and kubernetes installation
-     include_role: k8s_server
+     include_role: 
+       name: k8s_server
    - name: Control plane
-     include_role: control
+     include_role: 
+       name: control
