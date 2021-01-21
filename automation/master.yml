@@ -3,6 +3,8 @@
    connection: local
    remote_user: root
    become: yes
-   roles:
-           - k8s_server
-           - control
+   tasks:
+   - name: Base docker and kubernetes installation
+     include_role: k8s_server
+   - name: Control plane
+     include_role: control
