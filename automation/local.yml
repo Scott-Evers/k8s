@@ -5,7 +5,7 @@
 #   roles: 
 #     - workers
    tasks:
-    - name: "Applying role {{ role }}"
+    - name: "Applying roles {{ roles }}"
       include_role:
         name: "{{ item }}"
       with_items: 
