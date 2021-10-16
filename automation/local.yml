@@ -6,7 +6,7 @@
 #     - workers
    tasks:
     - name: "Applying role {{ role }}"
-      import_role:
+      include_role:
         name: "{{ item }}"
       with_items: 
         - "{{ roles }}"
