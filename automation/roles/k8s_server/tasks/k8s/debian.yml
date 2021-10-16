@@ -18,7 +18,7 @@
 - name: update and upgrade packages
   apt:
           update_cache: yes
-          upgrade: yes
+          upgrade: "yes"
 
 - name: install k8s
   package: name={{ item }}
