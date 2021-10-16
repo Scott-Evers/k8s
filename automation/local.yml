@@ -7,4 +7,5 @@
    tasks:
     - name: "Applying role {{ role }}"
       import_role:
-        name: "{{ role }}"
+        name: "{{ item }}"
+      with_item: "{{ roles }}"
