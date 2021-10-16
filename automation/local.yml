@@ -8,4 +8,5 @@
     - name: "Applying role {{ role }}"
       import_role:
         name: "{{ item }}"
-      with_item: "{{ roles }}"
+      with_item: 
+        - "{{ roles }}"
