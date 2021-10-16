@@ -10,3 +10,5 @@
         name: "{{ item }}"
       with_items: 
         - "{{ roles }}"
+      loop_control:
+        loop_var: role_name
