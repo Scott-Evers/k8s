@@ -21,7 +21,7 @@
           upgrade: "yes"
 
 - name: install k8s
-  package: name={{ item }}
+  package: name={{ k8s_package }}
   with_items:
           - kubelet
           - kubeadm

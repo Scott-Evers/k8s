@@ -7,7 +7,7 @@
    tasks:
     - name: "Applying roles {{ roles }}"
       include_role:
-        name: "{{ item }}"
+        name: "{{ role_name }}"
       with_items: 
         - "{{ roles }}"
       loop_control:
