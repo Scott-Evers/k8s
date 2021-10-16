@@ -1,4 +1,7 @@
-#!/bin/bash -xe",
+#!/bin/bash -xe
+
+# write userdata outuput to file
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 
 
 
@@ -22,20 +25,31 @@ unset UNAME
 
 if [ "$DISTRO" == "Ubuntu" ]; then
 
+    echo 'APT UPDATE'
 	apt update
+
+    echo 'APT INSTALL GIT ANSIBLE'
 	apt install -y git ansible
 
-	git clone git@gitlab.com:scott-sandbox/container-research.git
 
-	ansible-playbook ~/container-research/automation/master/master.yml
-	
+    echo 'CREATE ANSIBLE USER'
+    useradd -m ansible
+    echo 'ansible ALL = NOPASSWD : ALL' >> /etc/sudoers
+
+    
+    # set up SSH access to the system for ansible",
+    su ansible -s /bin/bash -lc 'mkdir /home/ansible/.ssh'
+    chmod 700 /home/ansible/.ssh
+    su ansible -s /bin/bash -lc 'echo ''ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwKOJjZz6893D9MnWgtJsKo4yeoGS7yEhEZuZdWVYZHK407MTR7FenzSdYCnBCaH5ul2AlVsos2fNUL52ewbJSjiCJkeOAH0d1XQlCU/PdOCSfI/vUwxPyU4nL1apEtZSiz9/KEh3w9F/vVXOvSHdRcX3NZxYCa8ffq0PIyUGL2affNbaHfJwSainnVhEekni83X8HiQs+XYmmltBpXTBoFtHrdITjB33rnRRzb3G9r0Qh8HUsKKV81WCkQvLTVTt6gWtLFsh+6ExL6VZGvkh3JkvS9Hg/GugAU4YYoGQhsTUnHGYKD/f/xvLhaOxh1EDL9gfv3FRtQZJCYZ7MZi8n ansible@involta'' > /home/ansible/.ssh/authorized_keys'
+    chmod 600 /home/ansible/.ssh/authorized_keys
+
 fi
 
 
 if [ "$DISTRO" == "blah" ]; then
 
     apt-get update
-    # create an asible user and give it sudo ALL access",
+    # create an asible user and give it sudo ALL access,
     useradd -m ansible
     echo 'ansible ALL = NOPASSWD : ALL' >> /etc/sudoers
 
