@@ -10,7 +10,9 @@
           - docker-ce
           - docker-ce-cli
           - containerd.io
-          - python-docker
+- name: Install Docker Module for Python
+  pip:
+    name: docker
 - name: start docker
   service:
           name: docker
