@@ -7,7 +7,7 @@
   apt:
           state: latest
           pkg:
-          - pip3
+          - python3-pip
           - docker-ce
           - docker-ce-cli
           - containerd.io
