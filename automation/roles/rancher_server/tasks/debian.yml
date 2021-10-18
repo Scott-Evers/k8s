@@ -11,7 +11,7 @@
     volumes:
     - /rancher_mysql:/var/lib/mysql
     restart_policy: always
-    ports:
+    published_ports:
     - 8080
 
 # sudo mkdir /rancher_mysql
