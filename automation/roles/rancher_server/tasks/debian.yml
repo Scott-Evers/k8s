@@ -12,7 +12,7 @@
     - /rancher_mysql:/var/lib/mysql
     restart_policy: always
     published_ports:
-    - "8080"
+    - "8080:8080"
 
 # sudo mkdir /rancher_mysql
 # sudo docker run -d -v /rancher_mysql:/var/lib/mysql --restart=always -p 8080:8080 rancher/server:v1.0.2
