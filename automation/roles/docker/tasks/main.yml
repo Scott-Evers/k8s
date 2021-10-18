@@ -1,2 +1,2 @@
-- name: Install Kubernetes
+- name: Install Docker
   include_tasks: "{{ ansible_os_family|lower }}.yml"
