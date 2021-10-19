@@ -6,7 +6,7 @@
 - name: "Run Rancher Server container"
   docker_container:
     name: ranchersvr
-    image: rancher/rancher:2.6
+    image: rancher/rancher:v2.6.1
     state: started
     volumes:
     - /rancher_mysql:/var/lib/mysql
