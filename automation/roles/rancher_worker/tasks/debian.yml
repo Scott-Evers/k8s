@@ -1,12 +1,7 @@
-- name: "Create MySQL directory for Rancher Server"
-  file:
-    path: /rancher_mysql
-    state: directory
-
 - name: "Run Rancher Server container"
   docker_container:
     name: ranchersvr
-    image: rancher/rancher:2.6
+    image: rancher/server:v1.0.2
     state: started
     volumes:
     - /rancher_mysql:/var/lib/mysql
