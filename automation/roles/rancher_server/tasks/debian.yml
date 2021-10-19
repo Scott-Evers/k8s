@@ -11,6 +11,9 @@
     volumes:
     - /rancher_mysql:/var/lib/mysql
     restart_policy: always
+    exposed_ports:
+    - 80
+    - 443
     published_ports:
     - "443:443"
     - "80:80"
