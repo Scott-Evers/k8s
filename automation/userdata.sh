@@ -43,6 +43,7 @@ if [ "$DISTRO" == "Ubuntu" ]; then
     su ansible -s /bin/bash -lc 'echo ''ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwKOJjZz6893D9MnWgtJsKo4yeoGS7yEhEZuZdWVYZHK407MTR7FenzSdYCnBCaH5ul2AlVsos2fNUL52ewbJSjiCJkeOAH0d1XQlCU/PdOCSfI/vUwxPyU4nL1apEtZSiz9/KEh3w9F/vVXOvSHdRcX3NZxYCa8ffq0PIyUGL2affNbaHfJwSainnVhEekni83X8HiQs+XYmmltBpXTBoFtHrdITjB33rnRRzb3G9r0Qh8HUsKKV81WCkQvLTVTt6gWtLFsh+6ExL6VZGvkh3JkvS9Hg/GugAU4YYoGQhsTUnHGYKD/f/xvLhaOxh1EDL9gfv3FRtQZJCYZ7MZi8n ansible@involta'' > /home/ansible/.ssh/authorized_keys'
     chmod 600 /home/ansible/.ssh/authorized_keys
 
+    ansible-pull -U https://github.com/Scott-Evers/k8s.git -e='{"roles": ["rancher_server"]}' automation/local.yml
 fi
 
 
