@@ -10,8 +10,8 @@
     state: started
     volumes:
     - /rancher_mysql:/var/lib/mysql
-    restart_policy: always
     privileged: yes
+    restart_policy: unless-stopped
     exposed_ports:
     - "80"
     - "443"
