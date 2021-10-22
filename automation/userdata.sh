@@ -33,7 +33,7 @@ if [ "$DISTRO" == "Ubuntu" ]; then
 
 
     echo 'CREATE ANSIBLE USER'
-    useradd -m ansible
+    useradd -s /bin/bash -m ansible
     echo 'ansible ALL = NOPASSWD : ALL' >> /etc/sudoers
 
     
