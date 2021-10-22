@@ -11,7 +11,6 @@
     volumes:
     - /rancher_mysql:/var/lib/mysql
     restart_policy: always
-    network_mode: bridge
     privileged: yes
     exposed_ports:
     - "80"
