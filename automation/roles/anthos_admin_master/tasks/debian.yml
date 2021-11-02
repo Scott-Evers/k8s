@@ -4,7 +4,7 @@
     enabled: no
     state: stopped
 
-- name: Stop and disable the firwall service
+- name: Stop and disable the firewall service
   ansible.builtin.service:
     name: ufw
     enabled: no
