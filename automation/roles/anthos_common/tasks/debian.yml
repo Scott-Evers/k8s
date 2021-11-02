@@ -1,7 +1,4 @@
-# GSUtil Installation
-# echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-# sudo apt-get install apt-transport-https ca-certificates gnupg
-
+# Install the Google Cloud SDK
 - name: "Install common prerequisites"
   apt:
     name: 
@@ -24,10 +21,12 @@
     - google-cloud-sdk
     state: present 
 
+# Install the bmctl Bare Metal Utility from Google
+- file:
+    path: baremetal
+    state: directory
 
-# This section is the CLI installation for bmctl
-# > mkdir baremetal
-# > cd baremetal
-# > gsutil cp gs://anthos-baremetal-release/bmctl/1.7.0/linux-amd64/bmctl .
+- name: Download bmctl
+  command: gsutil cp gs://anthos-baremetal-release/bmctl/1.7.0/linux-amd64/bmctl baremetal/
 # > chmod a+x bmctl
 # > mv bmctl /usr/local/sbin
