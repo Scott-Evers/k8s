@@ -10,9 +10,11 @@
     - gnupg
     state: present 
 
-- apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-- apt_repository:
+- name: "Add Google key to allowed repo signers"
+  apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+- name: "Add the repo for google cloud tools"
+  apt_repository:
     repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main
     state: present
 
