@@ -1,13 +1,14 @@
 - name: "Run Rancher Server container"
   docker_container:
-    name: ranchersvr
-    image: rancher/server:v1.0.2
+    name: rancherwkr
+    image: rancher/rancher-agent:v2.6.1
+    command:  --server https://rancher-vpc046b3dda2cf3dd434.sandbox.cloud.involta.com --token hlmtpjqg4wk8mtqhkncxrfz4294gnw2nk2q6f26nc52mlgbqf429xg --ca-checksum 5ea2317999bd7d3912dbe4c312ace970b7070cf0c7cec1de06ab8d205f8f8c48 --worker
     state: started
     volumes:
-    - /rancher_mysql:/var/lib/mysql
-    restart_policy: always
-    published_ports:
-    - "8080:8080"
+    - /etc/kubernetes:/etc/kubernetes
+    - /var/run:/var/run
+    restart_policy: unless-stopped
+    privileged: yes
 
 # sudo mkdir /rancher_mysql
 # sudo docker run -d -v /rancher_mysql:/var/lib/mysql --restart=always -p 8080:8080 rancher/server:v1.0.2
