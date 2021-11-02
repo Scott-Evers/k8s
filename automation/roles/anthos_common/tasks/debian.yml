@@ -18,10 +18,10 @@
     repo: deb https://packages.cloud.google.com/apt cloud-sdk main
     state: present
 
-- name: "Install gsutil"
+- name: "Install Google Cloud SDK"
   apt:
     name: 
-    - gsutil
+    - google-cloud-sdk
     state: present 
 
 
