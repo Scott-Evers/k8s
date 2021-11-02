@@ -18,6 +18,12 @@
     repo: deb https://packages.cloud.google.com/apt cloud-sdk main
     state: present
 
+- name: "Install gsutil"
+  apt:
+    name: 
+    - gsutil
+    state: present 
+
 
 # This section is the CLI installation for bmctl
 # > mkdir baremetal
