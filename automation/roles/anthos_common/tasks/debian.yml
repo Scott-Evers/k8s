@@ -27,10 +27,10 @@
     state: directory
 
 - name: Download bmctl
-  command: gsutil cp gs://anthos-baremetal-release/bmctl/1.9.1/linux-amd64/bmctl /baremetal/bmctl
+  command: gsutil cp gs://anthos-baremetal-release/bmctl/1.9.1/linux-amd64/bmctl /usr/local/sbin/bmctl
 
 - file:
-    path: /baremetal/bmctl
+    path: /usr/local/sbin/bmctl
     owner: root
     group: root
     mode: '755'
