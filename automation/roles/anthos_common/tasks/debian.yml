@@ -27,6 +27,11 @@
     state: directory
 
 - name: Download bmctl
-  command: gsutil cp gs://anthos-baremetal-release/bmctl/1.7.0/linux-amd64/bmctl baremetal/
-# > chmod a+x bmctl
+  command: gsutil cp gs://anthos-baremetal-release/bmctl/1.9.1/linux-amd64/bmctl /baremetal/bmctl
+
+- file:
+    path: /baremetal/bmctl
+    owner: root
+    group: root
+    mode: '755'
 # > mv bmctl /usr/local/sbin
