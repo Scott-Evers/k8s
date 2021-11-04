@@ -7,31 +7,61 @@
     - gnupg
     state: present 
 
-- name: "Add Google key to allowed repo signers"
-  apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-- name: "Add the repo for google cloud tools"
-  apt_repository:
-    repo: deb https://packages.cloud.google.com/apt cloud-sdk main
-    state: present
-
-- name: "Install Google Cloud SDK"
-  apt:
-    name: 
-    - google-cloud-sdk
-    state: present 
-
-# Install the bmctl Bare Metal Utility from Google
-- file:
-    path: baremetal
+# specify ssh key for root
+- name: Root authorized_keys
+  file:
     state: directory
+    mode: 0700
+    path: /root/.ssh
+- copy:
+    dest: /root/.ssh/authorized_keys
+    content: | 
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwKOJjZz6893D9MnWgtJsKo4yeoGS7yEhEZuZdWVYZHK407MTR7FenzSdYCnBCaH5ul2AlVsos2fNUL52ewbJSjiCJkeOAH0d1XQlCU/PdOCSfI/vUwxPyU4nL1apEtZSiz9/KEh3w9F/vVXOvSHdRcX3NZxYCa8ffq0PIyUGL2affNbaHfJwSainnVhEekni83X8HiQs+XYmmltBpXTBoFtHrdITjB33rnRRzb3G9r0Qh8HUsKKV81WCkQvLTVTt6gWtLFsh+6ExL6VZGvkh3JkvS9Hg/GugAU4YYoGQhsTUnHGYKD/f/xvLhaOxh1EDL9gfv3FRtQZJCYZ7MZi8n ansible@involta
+      
 
-- name: Download bmctl
-  command: gsutil cp gs://anthos-baremetal-release/bmctl/1.9.1/linux-amd64/bmctl /usr/local/sbin/bmctl
+# Add passwordless root access
+- name: Ensure password authentication is disabled for SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^\s*PasswordAuthentication\s'
+    line: PasswordAuthentication no
+- name: Enable ssh for root with key
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^\s*PermitRootLogin\s'
+    line: PermitRootLogin without-password
+- name: Restart sshd
+  service:
+    name: sshd
+    state: restarted
 
-- file:
-    path: /usr/local/sbin/bmctl
-    owner: root
-    group: root
-    mode: '755'
-# > mv bmctl /usr/local/sbin
+
+
+# - name: "Add Google key to allowed repo signers"
+#   apt_key:
+#         url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+# - name: "Add the repo for google cloud tools"
+#   apt_repository:
+#     repo: deb https://packages.cloud.google.com/apt cloud-sdk main
+#     state: present
+
+# - name: "Install Google Cloud SDK"
+#   apt:
+#     name: 
+#     - google-cloud-sdk
+#     state: present 
+
+# # Install the bmctl Bare Metal Utility from Google
+# - file:
+#     path: baremetal
+#     state: directory
+
+# - name: Download bmctl
+#   command: gsutil cp gs://anthos-baremetal-release/bmctl/1.9.1/linux-amd64/bmctl /usr/local/sbin/bmctl
+
+# - file:
+#     path: /usr/local/sbin/bmctl
+#     owner: root
+#     group: root
+#     mode: '755'
+# # > mv bmctl /usr/local/sbin
