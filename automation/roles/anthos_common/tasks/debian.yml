@@ -1,11 +1,11 @@
 # Install the Google Cloud SDK
-- name: "Install common prerequisites"
-  apt:
-    name: 
-    - apt-transport-https
-    - ca-certificates
-    - gnupg
-    state: present 
+# - name: "Install common prerequisites"
+#   apt:
+#     name: 
+#     - apt-transport-https
+#     - ca-certificates
+#     - gnupg
+#     state: present 
 
 # specify ssh key for root
 - name: Root authorized_keys
@@ -13,6 +13,7 @@
     state: directory
     mode: 0700
     path: /root/.ssh
+
 - copy:
     dest: /root/.ssh/authorized_keys
     content: | 
