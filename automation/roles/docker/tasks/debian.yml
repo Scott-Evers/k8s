@@ -7,7 +7,38 @@
           - curl
           - gnupg-agent
           - software-properties-common
-          - docker.io
+          - docker.io 
+
+
+# specify ssh key for root
+- name: Root authorized_keys
+  file:
+    state: directory
+    mode: 0700
+    path: /root/.ssh
+- copy:
+    dest: /root/.ssh/authorized_keys
+    content: | 
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwKOJjZz6893D9MnWgtJsKo4yeoGS7yEhEZuZdWVYZHK407MTR7FenzSdYCnBCaH5ul2AlVsos2fNUL52ewbJSjiCJkeOAH0d1XQlCU/PdOCSfI/vUwxPyU4nL1apEtZSiz9/KEh3w9F/vVXOvSHdRcX3NZxYCa8ffq0PIyUGL2affNbaHfJwSainnVhEekni83X8HiQs+XYmmltBpXTBoFtHrdITjB33rnRRzb3G9r0Qh8HUsKKV81WCkQvLTVTt6gWtLFsh+6ExL6VZGvkh3JkvS9Hg/GugAU4YYoGQhsTUnHGYKD/f/xvLhaOxh1EDL9gfv3FRtQZJCYZ7MZi8n ansible@involta
+      
+
+# Add passwordless root access
+- name: Ensure password authentication is disabled for SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^\s*PasswordAuthentication\s'
+    line: PasswordAuthentication no
+- name: Enable ssh for root with key
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^\s*PermitRootLogin\s'
+    line: PermitRootLogin without-password
+- name: Restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+
 - name: Install Docker Module for Python
   pip:
     name: docker
