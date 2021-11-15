@@ -1,11 +1,22 @@
 # Install the Google Cloud SDK
 # - name: "Install common prerequisites"
 #   apt:
-#     name: 
+#     name:
 #     - apt-transport-https
 #     - ca-certificates
 #     - gnupg
-#     state: present 
+#     state: present
+
+# disable conflicting services on Ubuntu
+- name: Disable conflicting services (apparmor, ufw)
+  service:
+    name: apparmor
+    state: stopped
+    enabled: no
+- service:
+    name: ufw
+    state: stopped
+    enabled: no
 
 # specify ssh key for root
 - name: Root authorized_keys
@@ -16,9 +27,9 @@
 
 - copy:
     dest: /root/.ssh/authorized_keys
-    content: | 
-      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwKOJjZz6893D9MnWgtJsKo4yeoGS7yEhEZuZdWVYZHK407MTR7FenzSdYCnBCaH5ul2AlVsos2fNUL52ewbJSjiCJkeOAH0d1XQlCU/PdOCSfI/vUwxPyU4nL1apEtZSiz9/KEh3w9F/vVXOvSHdRcX3NZxYCa8ffq0PIyUGL2affNbaHfJwSainnVhEekni83X8HiQs+XYmmltBpXTBoFtHrdITjB33rnRRzb3G9r0Qh8HUsKKV81WCkQvLTVTt6gWtLFsh+6ExL6VZGvkh3JkvS9Hg/GugAU4YYoGQhsTUnHGYKD/f/xvLhaOxh1EDL9gfv3FRtQZJCYZ7MZi8n ansible@involta
-      
+    content: |
+      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCJEoSMho24M8IHD+IwkvEBs5k0DXIllQdghi3vGXUG0O/KkBnYCFllFXnH93tnhrVBYsEtESZlFYw7yT4eOdff2smimOpV3rC5tx5bch0BzBsjYmjLw0cTyZoMEktT5HqEDsHLEdfB94DFf8tcEMiemaUYhzI3kVrZQVXqG2D02TXPxmqw+zsN5pdZYJlz4bQW+c9f6fFhaooOwtvbHgOcfEBh+MYzm/+jcgkcZPeZHfUUC5UGsu3gEdNeJfjEawFI3ImuSjw+1qICDn4tTYQwromG0JfnPNmuEgsfwAoTEC3HbpAvuP0Aul/444WxgARU10IEuiwitHs2V3wfAh43 scott.evers
+
 
 # Add passwordless root access
 - name: Ensure password authentication is disabled for SSH
@@ -48,9 +59,9 @@
 
 # - name: "Install Google Cloud SDK"
 #   apt:
-#     name: 
+#     name:
 #     - google-cloud-sdk
-#     state: present 
+#     state: present
 
 # # Install the bmctl Bare Metal Utility from Google
 # - file:
