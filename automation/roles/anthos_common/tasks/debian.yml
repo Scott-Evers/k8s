@@ -54,13 +54,13 @@
     name: systemd-resolved
     state: stopped
     enabled: no
-- copy:
-    dest: /etc/NetworkManager/NetworkManager.conf
-    content: |
-      [main]\r\ndns=default
 - file:
    path: "/etc/resolv.conf"
    state: absent
+- copy:
+    dest: /etc/resolv.conf
+    content: |
+      nameserver 192.168.86.1
 - service:
     name: NetworkManager
     state: restarted
