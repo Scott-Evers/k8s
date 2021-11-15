@@ -54,10 +54,10 @@
     name: systemd-resolved
     state: stopped
     enabled: no
-- lineinfile:
-    path: /etc/NetworkManager/NetworkManager.conf
-    regexp: '^\s*dns='
-    line: dns=default
+- copy:
+    dest: /etc/NetworkManager/NetworkManager.conf
+    content: |
+      [main]\r\ndns=default
 - file:
    path: "/etc/resolv.conf"
    state: absent
