@@ -61,9 +61,6 @@
     dest: /etc/resolv.conf
     content: |
       nameserver 192.168.86.1
-- service:
-    name: NetworkManager
-    state: restarted
 
 
 # - name: "Add Google key to allowed repo signers"
