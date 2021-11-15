@@ -48,6 +48,23 @@
     state: restarted
 
 
+# disable ubuntu's local dns caching service
+- name: Diable Ubuntu systemd-resolved service
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
+- lineinfile:
+    path: /etc/NetworkManager/NetworkManager.conf
+    regexp: '^\s*dns='
+    line: dns=default
+- file:
+   path: "/etc/resolv.conf"
+   state: absent
+- service:
+    name: NetworkManager
+    state: restarted
+
 
 # - name: "Add Google key to allowed repo signers"
 #   apt_key:
