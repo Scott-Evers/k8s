@@ -60,7 +60,7 @@
 - copy:
     dest: /etc/resolv.conf
     content: |
-      nameserver 192.168.86.1
+      nameserver 10.0.0.1
 
 
 # - name: "Add Google key to allowed repo signers"
