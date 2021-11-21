@@ -27,8 +27,7 @@
 
 - copy:
     dest: /root/.ssh/authorized_keys
-    content: |
-      ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCJEoSMho24M8IHD+IwkvEBs5k0DXIllQdghi3vGXUG0O/KkBnYCFllFXnH93tnhrVBYsEtESZlFYw7yT4eOdff2smimOpV3rC5tx5bch0BzBsjYmjLw0cTyZoMEktT5HqEDsHLEdfB94DFf8tcEMiemaUYhzI3kVrZQVXqG2D02TXPxmqw+zsN5pdZYJlz4bQW+c9f6fFhaooOwtvbHgOcfEBh+MYzm/+jcgkcZPeZHfUUC5UGsu3gEdNeJfjEawFI3ImuSjw+1qICDn4tTYQwromG0JfnPNmuEgsfwAoTEC3HbpAvuP0Aul/444WxgARU10IEuiwitHs2V3wfAh43 scott.evers
+    content: '{{ssh_pub_key}}'
 
 
 # Add passwordless root access
@@ -60,7 +59,7 @@
 - copy:
     dest: /etc/resolv.conf
     content: |
-      nameserver 10.0.0.1
+      nameserver {{nameservers}}
 
 
 # - name: "Add Google key to allowed repo signers"

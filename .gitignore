@@ -1,2 +1,4 @@
 *.code-workspace
 blog_sample_app/data/posts/*
+
+nodes.yml
