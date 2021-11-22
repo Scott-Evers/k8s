@@ -1,0 +1,27 @@
+# Following section is for anthos cluster nodes...not the workstation
+# - name: Stop and disable the apparmor service
+#   ansible.builtin.service:
+#     name: apparmor
+#     enabled: no
+#     state: stopped
+
+# - name: Stop and disable the firewall service
+#   ansible.builtin.service:
+#     name: ufw
+#     enabled: no
+#     state: stopped
+
+
+
+
+# GSUtil Installation
+# echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+# sudo apt-get install apt-transport-https ca-certificates gnupg
+
+
+# This section is the CLI installation for bmctl
+# > mkdir baremetal
+# > cd baremetal
+# > gsutil cp gs://anthos-baremetal-release/bmctl/1.7.0/linux-amd64/bmctl .
+# > chmod a+x bmctl
+# > mv bmctl /usr/local/sbin

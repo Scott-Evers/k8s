@@ -1,0 +1,92 @@
+# Install the Google Cloud SDK
+# - name: "Install common prerequisites"
+#   apt:
+#     name:
+#     - apt-transport-https
+#     - ca-certificates
+#     - gnupg
+#     state: present
+
+# disable conflicting services on Ubuntu
+- name: Disable conflicting services (apparmor, ufw)
+  service:
+    name: apparmor
+    state: stopped
+    enabled: no
+- service:
+    name: ufw
+    state: stopped
+    enabled: no
+
+# specify ssh key for root
+- name: Root authorized_keys
+  file:
+    state: directory
+    mode: 0700
+    path: /root/.ssh
+
+- copy:
+    dest: /root/.ssh/authorized_keys
+    content: '{{ssh_pub_key}}'
+
+
+# Add passwordless root access
+- name: Ensure password authentication is disabled for SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^\s*PasswordAuthentication\s'
+    line: PasswordAuthentication no
+- name: Enable ssh for root with key
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^\s*PermitRootLogin\s'
+    line: PermitRootLogin without-password
+- name: Restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+
+# disable ubuntu's local dns caching service
+- name: Diable Ubuntu systemd-resolved service
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
+- file:
+   path: "/etc/resolv.conf"
+   state: absent
+- copy:
+    dest: /etc/resolv.conf
+    content: |
+      nameserver {{nameservers}}
+
+
+# - name: "Add Google key to allowed repo signers"
+#   apt_key:
+#         url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+# - name: "Add the repo for google cloud tools"
+#   apt_repository:
+#     repo: deb https://packages.cloud.google.com/apt cloud-sdk main
+#     state: present
+
+# - name: "Install Google Cloud SDK"
+#   apt:
+#     name:
+#     - google-cloud-sdk
+#     state: present
+
+# # Install the bmctl Bare Metal Utility from Google
+# - file:
+#     path: baremetal
+#     state: directory
+
+# - name: Download bmctl
+#   command: gsutil cp gs://anthos-baremetal-release/bmctl/1.9.1/linux-amd64/bmctl /usr/local/sbin/bmctl
+
+# - file:
+#     path: /usr/local/sbin/bmctl
+#     owner: root
+#     group: root
+#     mode: '755'
+# # > mv bmctl /usr/local/sbin

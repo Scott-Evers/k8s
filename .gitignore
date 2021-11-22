@@ -1,2 +1,6 @@
 *.code-workspace
+.vscode/
+
 blog_sample_app/data/posts/*
+
+nodes.yml

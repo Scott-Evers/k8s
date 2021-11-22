@@ -1,0 +1,3 @@
+---
+dependencies:
+  - role: anthos_common
