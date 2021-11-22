@@ -1,5 +1,0 @@
----
- - hosts: edgenodes
-   become: yes
-   roles:
-    - anthos_common

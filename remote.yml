@@ -1,0 +1,5 @@
+---
+ - hosts: "{{group}}"
+   become: yes
+   roles:
+    - "{{roles}}"

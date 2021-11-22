@@ -10,11 +10,11 @@
           - docker.io 
 
 
-- name: Install Docker Module for Python
-  pip:
-    name: docker
-- name: start docker
-  service:
-          name: docker
-          state: started
-          enabled: yes
+# - name: Install Docker Module for Python
+#   pip:
+#     name: docker
+# - name: start docker
+#   service:
+#           name: docker
+#           state: started
+#           enabled: yes
